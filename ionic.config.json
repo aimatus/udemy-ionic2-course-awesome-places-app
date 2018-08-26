@@ -1,0 +1,7 @@
+{
+  "name": "udemy-ionic2-course-awesome-places-app",
+  "integrations": {
+    "cordova": {}
+  },
+  "type": "ionic-angular"
+}
