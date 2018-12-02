@@ -16,6 +16,8 @@ export class AddPlacePage {
     longitude: -72.9759827
   };
 
+  isLocationSet = false;
+
   constructor(private modalController: ModalController) { }
 
   onSubmit(form: NgForm) {
@@ -23,7 +25,13 @@ export class AddPlacePage {
   }
 
   onOpenMap() {
-    const modal = this.modalController.create(SetLocationPage, { location: this.location });
+    const modal = this.modalController.create(SetLocationPage, { location: this.location, isLocationSet: this.isLocationSet });
     modal.present();
+    modal.onDidDismiss(data => {
+      if (data) {
+        this.location = data.location;
+        this.isLocationSet = true;
+      }
+    });
   }
 }
