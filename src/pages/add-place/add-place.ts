@@ -9,6 +9,6 @@ import { NgForm } from '@angular/forms';
 })
 export class AddPlacePage {
   onSubmit(form: NgForm) {
-    console.log(form);
+    console.log(form.value);
   }
 }
