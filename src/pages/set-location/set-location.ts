@@ -10,13 +10,15 @@ import { Location } from '../../models/location.model';
 export class SetLocationPage {
 
   location: Location;
+  marker: Location;
 
   constructor(public navParams: NavParams) {
     this.location = this.navParams.get('location');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad SetLocationPage');
+  onSetMarker(event: any) {
+    console.log(event);
+    this.marker = new Location(event.coords.lat, event.coords.lng);
   }
 
 }
