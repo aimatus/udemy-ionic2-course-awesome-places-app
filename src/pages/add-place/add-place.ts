@@ -13,6 +13,9 @@ import { Location } from '../../models/location.model';
 })
 export class AddPlacePage {
 
+  private win: any = window;
+  imageUrl = '';
+
   location: Location = {
     latitude: 40.7624324,
     longitude: -72.9759827
@@ -78,6 +81,7 @@ export class AddPlacePage {
     this.camera.getPicture(options)
       .then(imageData => {
         console.log(imageData);
+        this.imageUrl = this.win.Ionic.WebView.convertFileSrc(imageData);
       })
       .catch(error => {
         console.log(error);
