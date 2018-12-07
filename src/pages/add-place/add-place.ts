@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import { SetLocationPage } from '../set-location/set-location';
 import { Location } from '../../models/location.model';
 import { PlacesService } from '../../services/places.service';
+import { File } from '@ionic-native/file';
 
 @IonicPage()
 @Component({
@@ -26,6 +27,7 @@ export class AddPlacePage {
 
   constructor(
     private modalController: ModalController,
+    private file: File,
     private geolocation: Geolocation,
     private loadingController: LoadingController,
     private toastController: ToastController,
@@ -95,10 +97,31 @@ export class AddPlacePage {
     this.camera.getPicture(options)
       .then(imageData => {
         console.log(imageData);
-        this.imageUrl = this.win.Ionic.WebView.convertFileSrc(imageData);
+        var filename = imageData.substring(imageData.lastIndexOf('/') + 1);
+        var path = imageData.substring(0, imageData.lastIndexOf('/') + 1);
+        this.file.moveFile(path, filename, this.file.dataDirectory, filename)
+          .then(data => {
+            console.log(JSON.stringify(data));
+            this.imageUrl = this.win.Ionic.WebView.convertFileSrc(data.nativeURL);
+          })
+          .catch(error => {
+            console.log(JSON.stringify(error));
+            this.imageUrl = '';
+            const toast = this.toastController.create({
+              message: 'Could not save the image. try again.',
+              duration: 4000
+            });
+            toast.present();
+            this.file.removeFile(path, filename);
+          });
       })
       .catch(error => {
         console.log(error);
+        const toast = this.toastController.create({
+          message: 'Could not take the photo. try again.',
+          duration: 4000
+        });
+        toast.present();
       });
   }
 }
