@@ -12,6 +12,7 @@ import { HomePage } from '../pages/home/home';
 import { PlacePage } from '../pages/place/place';
 import { AddPlacePage } from '../pages/add-place/add-place';
 import { SetLocationPage } from '../pages/set-location/set-location';
+import { PlacesService } from '../services/places.service';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import { SetLocationPage } from '../pages/set-location/set-location';
     Geolocation,
     StatusBar,
     SplashScreen,
+    PlacesService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

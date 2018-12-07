@@ -77,7 +77,7 @@
           Open Camera
         </button>
       </ion-row>
-      <ion-row>
+      <ion-row *ngIf="imageUrl !== ''">
         <ion-col>
           <img [src]="imageUrl">
         </ion-col>
@@ -88,7 +88,7 @@
             color="secondary"
             block
             type="submit"
-            [disabled]="!f.valid || !isLocationSet">
+            [disabled]="!f.valid || !isLocationSet || imageUrl === ''">
             Add this place
           </button>
         </ion-col>
