@@ -19,7 +19,10 @@ export class HomePage implements OnInit {
     private placesService: PlacesService) { }
 
   ngOnInit(): void {
-    this.placesService.fecthPlaces();
+    this.placesService.fecthPlaces()
+      .then((places: Place[]) => {
+        this.places = places;
+      });
   }
 
   ionViewWillEnter() {
